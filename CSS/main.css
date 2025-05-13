@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 4em;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f2f2f2;
+    color: #222;
+}
+
+header {
+    display: grid; /* Use grid layout */
+    grid-template-columns: 1fr 2fr; /* First column for the title, second for the finder */
+    gap: 1em; /* Reduced gap to bring the title and finder closer */
+    align-items: center; /* Vertically centers content */
+    color: #424141;
+    width: 100%;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.finder {
+    display: flex;
+    justify-content: space-between; /* Adjusts spacing between input and button */
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0.8em;
+    padding: 1.5em 1.5em; /* Reduced padding to bring elements closer */
+    gap: 0.5em;
+    width: 100%;
+    max-width: 900px;
+}
+
+.input {
+    padding: 0.4em 1em;
+    font-size: 1.2em;
+    border-radius: 0.5em;
+    border: 1px solid #f2f2f2;
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
+    min-width: 200px;
+}
+
+.button_find {
+    padding: 0.4em 1em;
+    font-size: 1.2em;
+    border-radius: 0.5em;
+    border: 1px solid #f2f2f2;
+    background-color: #bbadef;
+    color: #222;
+    cursor:pointer;
+}
+
+.button_find:hover {
+    background-color: rgb(181, 123, 235);
+    color: white;
+}
+
+/* Media Query for Mobile (below 600px) */
+@media (max-width: 600px) {
+    body {
+        padding: 2em;
+    }
+
+    .title {
+        font-size: 1em;
+    }
+
+    .finder {
+        padding: 1em 1.5em;
+        margin-top: 1em;
+    }
+
+    .input {
+        font-size: 1em;
+        max-width: 400px;
+    }
+
+    .button_find {
+        font-size: 1em;
+    }
+}
+
+
+
+
+

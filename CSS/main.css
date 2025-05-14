@@ -95,6 +95,16 @@ main {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
+
+.product_added {
+    background-color: #BBADEF;
+    color: rgb(43, 0, 80);
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
 .product_image {
     width: 100%;
     height: auto;
@@ -111,6 +121,18 @@ main {
     color: #333;
     margin: 0;
 }
+
+.button_added {
+    padding: 0.4em 1em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    border: 1px solid rgb(43, 0, 80);
+    background-color: rgb(43, 0, 80);
+    color: white;
+    cursor:pointer;
+
+}
+
 /* Media Query for Mobile (below 600px) */
 @media (max-width: 600px) {
     body {

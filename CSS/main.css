@@ -12,17 +12,19 @@ body {
 }
 
 header {
-    display: grid;
-    grid-template-columns: 25% 75%; /* 👈 coincide con shopping-cart y product-list */
-    gap: 1em;
-    align-items: center;
-    color: #424141;
-    width: 100%;
-    margin-bottom: 2em;
-    padding: 0 2em;
-    box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 2em;
+}
 
-    
+
+.header-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* 25% + 75% */
+  align-items: center;
+  gap: 1em;
+  max-width: 900px;     /* 👈 igual que .product-list */
+  margin: 0 auto;       /* 👈 centra el grid */
+  width: 100%;
 }
 
 .title {
@@ -44,6 +46,7 @@ header {
     gap: 0.5em;
     width: 100%;
     max-width: 900px;
+    margin: 0 auto;
 }
 
 .input {
@@ -94,6 +97,8 @@ main {
 .product-list {
    width: 100%;
    max-width: 900px;
+   margin: 0 auto;
+   padding: 0;
 }
 
 .product-grid {
@@ -103,6 +108,7 @@ main {
   list-style: none;
   padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .product {

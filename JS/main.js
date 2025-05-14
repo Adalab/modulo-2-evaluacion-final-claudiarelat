@@ -4,8 +4,6 @@ list.classList.add("product_grid");
 const buttonFind = document.querySelector(".js_button_find");
 const inputFind = document.querySelector(".js_input_find");
 
-
-
 let products = [];
 
 url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/products.json";
@@ -26,7 +24,7 @@ function renderItems(items) {
         title.classList.add("product_h4");
 
         const price = document.createElement("p");
-        price.textContent = item.price; 
+        price.textContent = item.price + " €"; 
         price.classList.add("product_price");
 
         const buyButton = document.createElement("button");
@@ -85,12 +83,10 @@ function addToCart(event) {
     // Toggle button styling
     if (buttonClicked.textContent === "Comprar") {
         buttonClicked.textContent = "Eliminar";
-        buttonClicked.classList.remove("button_find");
-        buttonClicked.classList.add("button_added");
+        buttonClicked.classList.toggle("button_added");
     } else {
         buttonClicked.textContent = "Comprar";
-        buttonClicked.classList.remove("button_added");
-        buttonClicked.classList.add("button_find");
+        buttonClicked.classList.toggle("button_added");
     }
 }
 
@@ -111,5 +107,3 @@ list.addEventListener("click", (event) => {
         addToCart(event);
     }
 });
-
-

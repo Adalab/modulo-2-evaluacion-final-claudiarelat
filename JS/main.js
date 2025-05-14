@@ -80,6 +80,7 @@ function renderCart() {
   
 
 function addToCart(event) {
+    console.log("click");
     event.preventDefault();
 
     const buttonClicked = event.target;
@@ -96,6 +97,9 @@ function addToCart(event) {
     buttonClicked.textContent = "Eliminar";
     buttonClicked.classList.add("button_added");
     listItem.classList.add("product_added");
+
+    // Deshabilitar el botón para evitar que se haga clic nuevamente
+    buttonClicked.disabled = true;
 
     // Añadir al carrito si no está
     if (!cart.find(item => item.id === productData.id)) {

@@ -6,7 +6,6 @@
 
 body {
   padding: 4em;
-  font-family: 'Quicksand', sans-serif;
   /* background-color: #F2F2F2; */
   background-color: #edebf6;
   color: #222;
@@ -36,6 +35,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .store-title {
@@ -51,9 +51,12 @@ body {
   margin-bottom: 1em;
 }
 
+.trolley {
+  font-family: 'Quicksand', sans-serif;
+}
+
 .shopping-cart {
   flex: 1;
-  font-family: 'Playfair Display', serif;
   color: #424141;
   padding: 1em;
   background-color: #F8F8F8;
@@ -188,7 +191,7 @@ body {
   }
 
   .cart-title {
-    font-size: 1.1em;
+    font-family: 'Playfair Display', serif;
   }
 
   .finder {

@@ -12,20 +12,26 @@ body {
 }
 
 header {
-    display: grid; /* Use grid layout */
-    grid-template-columns: 1fr 2fr; /* First column for the title, second for the finder */
-    gap: 1em; /* Reduced gap to bring the title and finder closer */
-    align-items: center; /* Vertically centers content */
+    display: grid;
+    grid-template-columns: 25% 75%; /* 👈 coincide con shopping-cart y product-list */
+    gap: 1em;
+    align-items: center;
     color: #424141;
     width: 100%;
+    margin-bottom: 2em;
+    padding: 0 2em;
+    box-sizing: border-box;
+
+    
 }
 
 .title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3em;
-    font-weight: 600;
-    text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: left; /* 👈 o center si prefieres */
 }
+
 
 .finder {
     display: flex;
@@ -69,31 +75,34 @@ header {
 }
 
 main {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* 1 parte para el carrito, 3 para los productos */
+    gap: 2em;
+    margin-top: 2em;
+    align-items: flex-start;
 }
 
 .shopping-cart {
-  width: 25%; /* ajusta según el diseño */
-  padding: 1em;
-  background-color: #f8f8f8;
-  /* posición fija opcional: */
-  /* position: sticky; top: 0; */
+  /* width: 25%;  */
+    padding: 1em;
+    background-color: #f8f8f8;
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .product-list {
-  width: 75%;
-  display: flex;
-  justify-content: flex-end; /* 👈 Alinea productos a la derecha */
-  padding: 2em;
-  box-sizing: border-box;
+   width: 100%;
+   max-width: 900px;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
   gap: 1.5em;
-  width: 100%;
-  max-width: 900px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .product {

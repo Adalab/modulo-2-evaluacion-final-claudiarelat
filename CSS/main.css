@@ -3,80 +3,66 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     padding: 4em;
     font-family: 'Quicksand', sans-serif;
-    background-color: #f2f2f2;
+    background-color: #F2F2F2;
     color: #222;
 }
-
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
 header {
-  width: 100%;
-  margin-bottom: 2em;
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Título 25% - Finder 75% */
+    gap: 1em;
+    align-items: center;
+    color: #424141;
+    width: 100%;
+    margin-bottom: 2em;
 }
-
-
-.header-content {
-  display: grid;
-  grid-template-columns: 1fr 3fr; /* 25% + 75% */
-  align-items: center;
-  gap: 1em;
-  max-width: 900px;     /* 👈 igual que .product-list */
-  margin: 0 auto;       /* 👈 centra el grid */
-  width: 100%;
-}
-
 .title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3em;
-  font-weight: 600;
-  text-align: left; /* 👈 o center si prefieres */
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-align: center;
 }
-
-
 .finder {
     display: flex;
-    justify-content: space-between; /* Adjusts spacing between input and button */
+    justify-content: space-between;
     align-items: center;
     background-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 0.8em;
-    padding: 0.8em 1.5em; /* reduced top/bottom and side padding */
+    padding: 0.8em 1.5em;
     gap: 0.5em;
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
 }
-
 .input {
-    /* padding: 0.4em 1em;
-    font-size: 1.2em; */
-    padding: 0.3em 0.8em; /* reduce vertical and horizontal padding */
-  font-size: 1em;       /* slightly smaller text */
+    padding: 0.3em 0.8em; /* Reduce vertical and horizontal padding */
+    font-size: 1em; /* Slightly smaller text */
     border-radius: 0.5em;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #F2F2F2;
     text-align: left;
     width: 100%;
     max-width: 600px;
     min-width: 200px;
 }
-
 .button_find {
     padding: 0.4em 1em;
     font-size: 1em;
     border-radius: 0.5em;
-    border: 1px solid #f2f2f2;
-    background-color: #bbadef;
+    border: 1px solid #F2F2F2;
+    background-color: #BBADEF;
     color: #222;
     cursor:pointer;
 }
-
 .button_find:hover {
     background-color: rgb(181, 123, 235);
     color: white;
 }
-
 main {
     display: grid;
     grid-template-columns: 1fr 3fr; /* 1 parte para el carrito, 3 para los productos */
@@ -84,87 +70,75 @@ main {
     margin-top: 2em;
     align-items: flex-start;
 }
-
 .shopping-cart {
-  /* width: 25%;  */
     padding: 1em;
-    background-color: #f8f8f8;
-    padding: 1em;
+    background-color: #F8F8F8;
     border-radius: 0.5em;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .product-list {
-   width: 100%;
-   max-width: 900px;
-   margin: 0 auto;
-   padding: 0;
+    width: 100%;
+    padding: 0;
 }
-
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
-  gap: 1.5em;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
+    gap: 1.5em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-
 .product {
-  background-color: white;
-  padding: 1em;
-  border-radius: 0.5em;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: center;
+    background-color: white;
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
-
 .product_image {
-  width: 100%;
-  height: auto; /* 👈 importante para mantener proporción */
-  max-height: 200px; /* 👈 límite opcional de alto */
-  object-fit: contain; /* 👈 evita que se recorte */
-  margin-bottom: 1em;
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 1em;
 }
 .product_h4 {
-  font-size: 1em;
-  margin: 0.5em 0 0.2em;
+    font-size: 1em;
+    margin: 0.5em 0 0.2em;
 }
-
 .product_price {
-  font-weight: bold;
-  color: #333;
-  margin: 0;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
 }
-
-
-
-
 /* Media Query for Mobile (below 600px) */
 @media (max-width: 600px) {
     body {
         padding: 2em;
     }
-
     .title {
         font-size: 1em;
         margin-top: 0.8em;
     }
-
     .finder {
         padding: 0.6em 1em;
         margin-top: 1em;
     }
-
     .input {
         font-size: 1em;
         max-width: 400px;
     }
-
     .button_find {
         font-size: 1em;
     }
+    main {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 productos por fila */
+    }
 }
+
 
 
 

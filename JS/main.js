@@ -4,11 +4,16 @@ list.classList.add("product_grid");
 const buttonFind = document.querySelector(".js_button_find");
 const inputFind = document.querySelector(".js_input_find");
 
+const trolley = document.querySelector(".js_trolley");
+
 let products = [];
+let cart = [];
 
-url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/products.json";
+const url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/products.json";
 
-function renderItems(items) {
+function renderItems(items, constant) {
+    constant.innerHTML = ""; // Limpiar antes de renderizar
+
     items.forEach((item) => {
         const li = document.createElement("li");
         li.id = item.id;
@@ -28,21 +33,20 @@ function renderItems(items) {
         price.classList.add("product_price");
 
         const buyButton = document.createElement("button");
-        buyButton.textContent = "Comprar";
         buyButton.classList.add("button_find", "js_buy_button");
-        buyButton.id = item.id; 
+        buyButton.id = item.id;
+        buyButton.textContent = "Comprar"; 
 
         li.appendChild(img);
         li.appendChild(title);
         li.appendChild(price);
         li.appendChild(buyButton);
 
-        list.appendChild(li);
-        
-    }) 
+        constant.appendChild(li);
+    });
 }
 
-handleFind = (event) => {
+const handleFind = (event) => {
     event.preventDefault();
     const inputValue = inputFind.value.toLowerCase().trim();
 
@@ -58,44 +62,57 @@ handleFind = (event) => {
         list.appendChild(li);
     }
     else {
-        renderItems(foundItems);
+        renderItems(foundItems, list);
     }
 
 }
 
+function renderCart() {
+  trolley.innerHTML = ""; // limpiar carrito
+
+  if (cart.length === 0) {
+    trolley.innerHTML = "<p>Carrito vacío</p>";
+    return;
+  }
+  renderItems(cart, trolley); 
+}
+
+  
 
 function addToCart(event) {
     event.preventDefault();
 
     const buttonClicked = event.target;
-    const buttonId = buttonClicked.id;
+
+    // Solo actuar si el botón dice "Comprar"
+    if (buttonClicked.textContent !== "Comprar") return;
+
+    const buttonId = parseInt(buttonClicked.id);
+    const productData = products.find(product => product.id === buttonId);
+
     const listItem = document.getElementById(buttonId);
 
-    if (!listItem) {
-        console.error("No matching list item found for ID:", buttonId);
-        return;
+    // Cambiar estilos permanentes
+    buttonClicked.textContent = "Eliminar";
+    buttonClicked.classList.add("button_added");
+    listItem.classList.add("product_added");
+
+    // Añadir al carrito si no está
+    if (!cart.find(item => item.id === productData.id)) {
+        cart.push(productData);
     }
 
-    // Toggle product styling
-    listItem.classList.toggle("product_added");
-    listItem.classList.toggle("product");
-
-    // Toggle button styling
-    if (buttonClicked.textContent === "Comprar") {
-        buttonClicked.textContent = "Eliminar";
-        buttonClicked.classList.toggle("button_added");
-    } else {
-        buttonClicked.textContent = "Comprar";
-        buttonClicked.classList.toggle("button_added");
-    }
+    renderCart(); // Renderiza el carrito sin alterar el estilo original
 }
+
+
 
 fetch(url)
     .then((response) => response.json())
     .then((data) => {
         products = data;
-        console.table(products);
-        renderItems(products);
+        // console.table(products);
+        renderItems(products, list);
     })
 
 

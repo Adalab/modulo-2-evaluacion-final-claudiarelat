@@ -11,7 +11,7 @@ let cart = [];
 
 const url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/products.json";
 
-function renderItems(items, constant) {
+function renderItems(items, constant, isCart = false) {
     constant.innerHTML = ""; // Limpiar antes de renderizar
 
     items.forEach((item) => {
@@ -32,15 +32,28 @@ function renderItems(items, constant) {
         price.textContent = item.price + " €"; 
         price.classList.add("product_price");
 
-        const buyButton = document.createElement("button");
-        buyButton.classList.add("button_find", "js_buy_button");
-        buyButton.id = item.id;
-        buyButton.textContent = "Comprar"; 
-
         li.appendChild(img);
         li.appendChild(title);
         li.appendChild(price);
-        li.appendChild(buyButton);
+
+        // Si estamos renderizando el carrito, no añadimos el botón ni los estilos "product_added"
+        if (!isCart) {
+            const buyButton = document.createElement("button");
+            buyButton.classList.add("button_find", "js_buy_button");
+            buyButton.id = item.id;
+
+            // Verificar si ya está en el carrito
+            const isInCart = cart.find(product => product.id === item.id);
+            if (isInCart) {
+                buyButton.textContent = "Eliminar";
+                buyButton.classList.add("button_added");
+                li.classList.add("product_added");
+            } else {
+                buyButton.textContent = "Comprar";
+            }
+
+            li.appendChild(buyButton);
+        }
 
         constant.appendChild(li);
     });
@@ -74,39 +87,41 @@ function renderCart() {
     trolley.innerHTML = "<p>Carrito vacío</p>";
     return;
   }
-  renderItems(cart, trolley); 
+  renderItems(cart, trolley, true); 
 }
 
   
-
 function addToCart(event) {
-    console.log("click");
     event.preventDefault();
 
     const buttonClicked = event.target;
-
-    // Solo actuar si el botón dice "Comprar"
-    if (buttonClicked.textContent !== "Comprar") return;
-
     const buttonId = parseInt(buttonClicked.id);
     const productData = products.find(product => product.id === buttonId);
 
+
     const listItem = document.getElementById(buttonId);
 
-    // Cambiar estilos permanentes
-    buttonClicked.textContent = "Eliminar";
-    buttonClicked.classList.add("button_added");
-    listItem.classList.add("product_added");
 
-    // Deshabilitar el botón para evitar que se haga clic nuevamente
-    buttonClicked.disabled = true;
+    if (buttonClicked.textContent === "Comprar") {
+        buttonClicked.textContent = "Eliminar";
+        buttonClicked.classList.add("button_added");
+        listItem.classList.add("product_added");
 
-    // Añadir al carrito si no está
-    if (!cart.find(item => item.id === productData.id)) {
-        cart.push(productData);
+        // Add to cart if not already there
+        if (!cart.find(item => item.id === productData.id)) {
+            cart.push(productData);
+        }
+    } else {
+        buttonClicked.textContent = "Comprar";
+        buttonClicked.classList.remove("button_added");
+        listItem.classList.remove("product_added");
+
+        // Remove from cart
+        cart = cart.filter(item => item.id !== productData.id);
     }
 
-    renderCart(); // Renderiza el carrito sin alterar el estilo original
+    renderCart();
+    renderItems(products, list); 
 }
 
 

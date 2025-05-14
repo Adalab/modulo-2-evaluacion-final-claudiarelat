@@ -100,7 +100,8 @@ body {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5em;
   list-style: none;
   padding: 0;
@@ -109,7 +110,8 @@ body {
 
 .product {
   background-color: white;
-  padding: 1em;
+  padding: 0.6em;
+  font-size: 0.9em;
   border-radius: 0.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -133,9 +135,9 @@ body {
 .product_image {
   width: 100%;
   height: auto;
-  max-height: 200px;
+  max-height: 140px;
   object-fit: contain;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
 }
 
 .product_h4 {

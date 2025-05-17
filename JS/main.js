@@ -75,12 +75,12 @@ function renderItems(items, constant, isCart = false) {
         li.appendChild(title);
         li.appendChild(price);
 
-        // if (isCart) {
-        //     li.classList.add("cart-item");
-        // }
+        if (isCart) {
+            li.classList.add("cart-item");
+        }
 
         // Si estamos renderizando el carrito, no añadimos el botón ni los estilos "product_added"
-        if (!isCart) {
+        else if (!isCart) {
             const buyButton = document.createElement("button");
             buyButton.classList.add("button_find", "js_buy_button");
             buyButton.id = item.id;

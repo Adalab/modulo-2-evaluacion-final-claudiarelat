@@ -5,7 +5,7 @@
 }
 
 body {
-  padding: 8em 4em 4em; /* Increased top padding for space under fixed header */
+  padding: 8em 4em 4em;
   background-color: #0c2d48;
   color: #222;
   font-family: 'Quicksand', sans-serif;
@@ -34,18 +34,20 @@ body {
 }
 
 .container {
-  background-color: #0c2d48; /* Restored dark blue background */
+  background-color: #0c2d48;
   padding: 2em;
   border-radius: 0.8em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Main two column layout */
 .main-grid {
   display: flex;
   gap: 2em;
   align-items: stretch;
 }
 
+/* Left panel stacked vertically */
 .left-panel {
   flex: 0.8;
   max-width: 250px;
@@ -54,6 +56,7 @@ body {
   gap: 1em;
 }
 
+/* Right panel stacked vertically */
 .right-panel {
   flex: 3.2;
   display: flex;
@@ -74,27 +77,37 @@ body {
   font-family: 'Playfair Display', serif;
   color: #222;
   margin-bottom: 1em;
-
 }
 
-.trolley {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
+/* Shopping cart styling */
 .shopping-cart {
   color: #424141;
-  padding: 2em 2.5em; /* Increased horizontal padding */
+  padding: 2em 2.5em;
   background-color: #f8f8f8;
   border-radius: 0.5em;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 1em;
 }
 
+.trolley {
+  list-style: none;
+  display: flex;
+  flex-direction: column; /* Stack cart items vertically */
+  gap: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* Finder panel: just the form styling */
+.finder-panel {
+  width: 100%;
+}
+
+/* Finder form */
 .finder {
   display: flex;
   justify-content: space-between;
@@ -114,7 +127,7 @@ body {
   border: 1px solid #ccc;
   text-align: left;
   width: 100%;
-  max-width: 600px;
+  max-width: 920px;
   min-width: 200px;
 }
 
@@ -133,15 +146,18 @@ body {
   border-color: #1e344e;
 }
 
+/* Products grid with 4 columns */
 .product-grid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5em;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Individual product styling */
 .product {
   background-color: white;
   padding: 0.6em;
@@ -195,91 +211,95 @@ body {
 .button_added:hover {
   background-color: #98cae7;
   border-color: #98cae7;
+}
 
-/* Cart item layout */
 .cart-item {
   display: flex;
-  align-items: center;
-  gap: 1em;
+  flex-direction: column;  /* Stack content vertically */
+  align-items: flex-start;
+  gap: 0.5em;
   background-color: #ffffff;
-  padding: 0.5em;
-  border-radius: 0.5em;
+  padding: 0.8em;
+  border-radius: 0.6em;
   margin-bottom: 1em;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
 }
+
+
 
 .cart-item .product_image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
-  margin-bottom: 0;
+  margin-bottom: 0.3em;
 }
 
+
 .cart-item .product_h4 {
-  font-size: 0.9em;
+  font-size: 0.95em;
   margin: 0;
+  color: #333;
 }
 
 .cart-item .product_price {
   font-size: 0.9em;
-  font-weight: normal;
-  color: #333;
-  margin-left: auto;
+  font-weight: bold;
+  color: #222;
 }
 
-/* Responsive - Móvil */
-@media (max-width: 600px) {
-  body {
-    padding: 8em 2em 2em;
-  }
 
+
+/* Responsive - stack left and right panel vertically */
+@media (max-width: 900px) {
   .main-grid {
     flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    max-width: 100%;
+    flex: none;
+  }
+}
+
+/* Responsive - mobile tweaks */
+@media (max-width: 600px) {
+  .finder {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1em;
+    gap: 0.5em;
+  }
+
+  .input,
+  .button_find {
+    width: 100%;
   }
 
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .store-title {
-    font-size: 1.2em;
-    text-align: left;
-  }
-
-  .finder {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0.6em 1em;
-  }
-
-  .input {
-    max-width: 100%;
-  }
-
-  .button_find {
-    margin-top: 0.5em;
+  .cart-item {
     width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    height: auto;
   }
 
-  @media (max-width: 600px) {
-  /* Existing styles ... */
-
-  .left-panel {
-    max-width: 100%;
-    flex: none;
-    width: 100%;
-    padding: 0;
-  }
-
-  .shopping-cart {
-    padding-left: 1em;
-    padding-right: 0;
-    width: 100%;
-    box-sizing: border-box;
+  .cart-item .product_image {
+    width: 50px;
+    height: 50px;
   }
 }
 
-}
+
+
+
+
+
 
 
 

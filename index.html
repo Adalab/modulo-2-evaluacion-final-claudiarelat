@@ -8,29 +8,33 @@
   <link rel="stylesheet" href="./CSS/main.css" />
   <meta name="theme-color" content="#0e1f3a" />
 </head>
-<header class="main-header">
+<body>
+  <header class="main-header">
   <h1 class="header-title">🧿BLUETIQUE</h1>
   <h3>Blue you away with the best random stuff</h3>
-</header>
-<body>
+  </header>
   <div class="container">
-    <main class="main-grid">
-      <section class="left-panel">
-        <h1 class="store-title">Favourite products</h1>
-        <div class="shopping-cart">
-          <h2 class="cart-title">🛒Shopping Cart</h2>
-          <ul type="none" class="trolley js_trolley"></ul>
-        </div>
-      </section>
-      <section class="right-panel">
+  <main class="main-grid">
+    <section class="left-panel">
+      <h1 class="store-title">Favourite products</h1>
+      <div class="shopping-cart">
+        <h2 class="cart-title">Shopping Cart 🛒</h2>
+        <ul type="none" class="trolley js_trolley"></ul>
+        <button class="button_find js_clear_button">Clear Cart</button>
+      </div>
+    </section>
+
+    <section class="right-panel">
+      <div class="finder-panel">
         <form class="finder">
           <input class="input js_input_find" type="text" placeholder="Example: jacket" />
           <button type="submit" class="button_find js_button_find">Find</button>
         </form>
-        <ul class="product-grid js_ul"></ul>
-      </section>
-    </main>
-  </div>
+      </div>
+      <ul class="product-grid js_ul"></ul>
+    </section>
+  </main>
+</div>
 
 
   <script src="./JS/main.js"></script>

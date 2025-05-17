@@ -11,6 +11,7 @@ const inputFind = document.querySelector(".js_input_find");
 // const buttonBuy = document.querySelectorAll(".js_buy_button");
 
 const trolley = document.querySelector(".js_trolley");
+const buttonClear = document.querySelector(".js_clear_button")
 
 let products = [];
 let cart = [];
@@ -19,8 +20,6 @@ const url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/prod
 
 
 // Fetch y almacenamiento local 
-// Productos
-// 1. Load products
 if (localStorage.getItem("products") === null) {
     fetch(url)
         .then((response) => response.json())
@@ -28,7 +27,7 @@ if (localStorage.getItem("products") === null) {
             products = data;
             localStorage.setItem("products", JSON.stringify(products));
 
-            // 💡 Make sure to render AFTER loading the cart
+            
             if (localStorage.getItem("cart")) {
                 cart = JSON.parse(localStorage.getItem("cart"));
                 renderCart();
@@ -39,13 +38,13 @@ if (localStorage.getItem("products") === null) {
 } else {
     products = JSON.parse(localStorage.getItem("products"));
 
-    // 💡 Load cart BEFORE rendering product list
+    
     if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
         renderCart();
     }
 
-    renderItems(products, list); // Now buttons will render correctly
+    renderItems(products, list); 
 }
 
 
@@ -136,7 +135,7 @@ function renderCart() {
   trolley.innerHTML = ""; // limpiar carrito
 
   if (cart.length === 0) {
-    trolley.innerHTML = "<p>Empty cart</p>";
+    trolley.innerHTML = "<p>It is empty</p>";
     return;
   }
   renderItems(cart, trolley, true); 
@@ -178,6 +177,20 @@ function addToCart(event) {
     renderItems(products, list); 
 }
 
+function handleClear(event) {
+    event.preventDefault();
+    
+    // Empty the cart
+    cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
+    // Re-render the cart (this will show the "It is empty" message)
+    renderCart();
+    
+    // Re-render the product list to remove "product_added" styles and set buttons back to "Comprar"
+    renderItems(products, list);
+};
+
 
 //Eventos 
 buttonFind.addEventListener("click", handleFind);
@@ -188,3 +201,5 @@ list.addEventListener("click", (event) => {
         addToCart(event);
     }
 });
+
+buttonClear.addEventListener("click", handleClear);

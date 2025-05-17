@@ -1,8 +1,14 @@
+
+'use strict'; 
+
+//Constantes y variables 
 const list = document.querySelector(".js_ul");
 list.classList.add("product_grid");
 
 const buttonFind = document.querySelector(".js_button_find");
 const inputFind = document.querySelector(".js_input_find");
+
+// const buttonBuy = document.querySelectorAll(".js_buy_button");
 
 const trolley = document.querySelector(".js_trolley");
 
@@ -10,6 +16,40 @@ let products = [];
 let cart = [];
 
 const url = "https://raw.githubusercontent.com/Adalab/resources/master/apis/products.json";
+
+
+// Fetch y almacenamiento local 
+// Productos
+// 1. Load products
+if (localStorage.getItem("products") === null) {
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            products = data;
+            localStorage.setItem("products", JSON.stringify(products));
+
+            // 💡 Make sure to render AFTER loading the cart
+            if (localStorage.getItem("cart")) {
+                cart = JSON.parse(localStorage.getItem("cart"));
+                renderCart();
+            }
+
+            renderItems(products, list);
+        });
+} else {
+    products = JSON.parse(localStorage.getItem("products"));
+
+    // 💡 Load cart BEFORE rendering product list
+    if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+        renderCart();
+    }
+
+    renderItems(products, list); // Now buttons will render correctly
+}
+
+
+//Funciones 
 
 function renderItems(items, constant, isCart = false) {
     constant.innerHTML = ""; // Limpiar antes de renderizar
@@ -55,19 +95,26 @@ function renderItems(items, constant, isCart = false) {
             li.appendChild(buyButton);
         }
 
+        
+
         constant.appendChild(li);
     });
 }
 
+
+
 const handleFind = (event) => {
+    
+    list.innerHTML = ""; 
     event.preventDefault();
+    
     const inputValue = inputFind.value.toLowerCase().trim();
 
     const foundItems = products.filter((product) => {
-    return product.title.toLowerCase().trim().includes(inputValue);
+        return product.title.toLowerCase().trim().includes(inputValue);
     });
 
-    list.innerHTML = ""; 
+    // list.innerHTML = ""; 
     if (foundItems.length === 0) {
         const li = document.createElement("li");
         li.textContent = "No hay resultados";
@@ -77,9 +124,9 @@ const handleFind = (event) => {
     else {
         renderItems(foundItems, list);
     }
-
 }
 
+   
 function renderCart() {
   trolley.innerHTML = ""; // limpiar carrito
 
@@ -120,24 +167,17 @@ function addToCart(event) {
         cart = cart.filter(item => item.id !== productData.id);
     }
 
+    localStorage.setItem("cart", JSON.stringify(cart));
+
     renderCart();
     renderItems(products, list); 
 }
 
 
-
-fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-        products = data;
-        // console.table(products);
-        renderItems(products, list);
-    })
-
-
+//Eventos 
 buttonFind.addEventListener("click", handleFind);
 
-const buttonBuy = document.querySelectorAll(".js_buy_button");
+
 list.addEventListener("click", (event) => {
     if (event.target.classList.contains("js_buy_button")) {
         addToCart(event);

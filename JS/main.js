@@ -76,6 +76,10 @@ function renderItems(items, constant, isCart = false) {
         li.appendChild(title);
         li.appendChild(price);
 
+        // if (isCart) {
+        //     li.classList.add("cart-item");
+        // }
+
         // Si estamos renderizando el carrito, no añadimos el botón ni los estilos "product_added"
         if (!isCart) {
             const buyButton = document.createElement("button");
@@ -91,6 +95,7 @@ function renderItems(items, constant, isCart = false) {
             } else {
                 buyButton.textContent = "Comprar";
             }
+        
 
             li.appendChild(buyButton);
         }
@@ -131,7 +136,7 @@ function renderCart() {
   trolley.innerHTML = ""; // limpiar carrito
 
   if (cart.length === 0) {
-    trolley.innerHTML = "<p>Carrito vacío</p>";
+    trolley.innerHTML = "<p>Empty cart</p>";
     return;
   }
   renderItems(cart, trolley, true); 

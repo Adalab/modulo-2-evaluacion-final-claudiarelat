@@ -50,62 +50,89 @@ if (localStorage.getItem("products") === null) {
 
 //Funciones 
 
-function renderItems(items, constant, isCart = false) {
-    constant.innerHTML = ""; // Limpiar antes de renderizar
+function renderItems(items, container, isCart = false) {
+  container.innerHTML = ""; // Clear before re-rendering
 
-    items.forEach((item) => {
-        const li = document.createElement("li");
-        li.id = item.id;
-        li.classList.add("product");
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.id = item.id;
+    
+    
+    if (isCart) {
+      li.classList.add("cart-item");
+    } else {
+      li.classList.add("product");
+    }
 
-        const img = document.createElement("img");
-        img.src = item.image; 
-        img.alt = item.title;
-        img.classList.add("product_image");
-        
-        const title = document.createElement("h4");
-        title.textContent = item.title; 
-        title.classList.add("product_h4");
+    // Create and append the image element
+    const img = document.createElement("img");
+    img.src = item.image; 
+    img.alt = item.title;
+    img.classList.add("product_image");
 
-        const price = document.createElement("p");
-        price.textContent = item.price + " €"; 
-        price.classList.add("product_price");
+    // Create a container for product details (name and price)
+    const detailsContainer = document.createElement("div");
+    detailsContainer.classList.add("cart-details");
 
-        li.appendChild(img);
-        li.appendChild(title);
-        li.appendChild(price);
+    const title = document.createElement("h4");
+    title.textContent = item.title;
+    title.classList.add("product_h4");
 
-        if (isCart) {
-            li.classList.add("cart-item");
-        }
+    const price = document.createElement("p");
+    price.textContent = item.price + " €"; 
+    price.classList.add("product_price");
 
-        // Si estamos renderizando el carrito, no añadimos el botón ni los estilos "product_added"
-        else if (!isCart) {
-            const buyButton = document.createElement("button");
-            buyButton.classList.add("button_find", "js_buy_button");
-            buyButton.id = item.id;
+    detailsContainer.appendChild(title);
+    detailsContainer.appendChild(price);
 
-            // Verificar si ya está en el carrito
-            const isInCart = cart.find(product => product.id === item.id);
-            if (isInCart) {
-                buyButton.textContent = "Eliminar";
-                buyButton.classList.add("button_added");
-                li.classList.add("product_added");
-            } else {
-                buyButton.textContent = "Comprar";
-            }
-        
+    li.appendChild(img);
+    li.appendChild(detailsContainer);
 
-            li.appendChild(buyButton);
-        }
+    if (isCart) {
+      // Create a container for quantity controls below the product details
+      const quantityContainer = document.createElement("div");
+      quantityContainer.classList.add("quantity-control");
 
-        
+      const minusButton = document.createElement("button");
+      minusButton.textContent = "–";
+      minusButton.classList.add("quantity-minus");
+      minusButton.dataset.id = item.id;
 
-        constant.appendChild(li);
-    });
+      const countSpan = document.createElement("span");
+      countSpan.textContent = item.quantity;
+      countSpan.classList.add("quantity-count");
+
+      const plusButton = document.createElement("button");
+      plusButton.textContent = "+";
+      plusButton.classList.add("quantity-plus");
+      plusButton.dataset.id = item.id;
+
+      quantityContainer.appendChild(minusButton);
+      quantityContainer.appendChild(countSpan);
+      quantityContainer.appendChild(plusButton);
+
+      // Append the quantity controls after the details
+      li.appendChild(quantityContainer);
+    } else {
+      
+      const buyButton = document.createElement("button");
+      buyButton.classList.add("button_find", "js_buy_button");
+      buyButton.id = item.id;
+
+      const isInCart = cart.find(product => product.id === item.id);
+      if (isInCart) {
+        buyButton.textContent = "Delete";
+        buyButton.classList.add("button_added");
+        li.classList.add("product_added");
+      } else {
+        buyButton.textContent = "Buy Now";
+      }
+      li.appendChild(buyButton);
+    }
+
+    container.appendChild(li);
+  });
 }
-
-
 
 const handleFind = (event) => {
     
@@ -121,8 +148,8 @@ const handleFind = (event) => {
     // list.innerHTML = ""; 
     if (foundItems.length === 0) {
         const li = document.createElement("li");
-        li.textContent = "No hay resultados";
-        li.classList.add("product");
+        li.textContent = "No results";
+        li.classList.add("empty");
         list.appendChild(li);
     }
     else {
@@ -135,47 +162,52 @@ function renderCart() {
   trolley.innerHTML = ""; // limpiar carrito
 
   if (cart.length === 0) {
-    trolley.innerHTML = "<p>It is empty</p>";
+    // trolley.innerHTML = "<p>It is empty</p>";
+    const vacio = document.createElement("p");
+    vacio.textContent = "It is empty"
+    vacio.classList.add("empty");
+    trolley.appendChild(vacio);
     return;
   }
   renderItems(cart, trolley, true); 
 }
 
-  
+
+
 function addToCart(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const buttonClicked = event.target;
-    const buttonId = parseInt(buttonClicked.id);
-    const productData = products.find(product => product.id === buttonId);
+  const buttonClicked = event.target;
+  const buttonId = parseInt(buttonClicked.id);
+  const productData = products.find(product => product.id === buttonId);
+  const listItem = document.getElementById(buttonId);
 
+  // Check if the product already exists in the cart
+  const existingProduct = cart.find(item => item.id === productData.id);
 
-    const listItem = document.getElementById(buttonId);
-
-
-    if (buttonClicked.textContent === "Comprar") {
-        buttonClicked.textContent = "Eliminar";
-        buttonClicked.classList.add("button_added");
-        listItem.classList.add("product_added");
-
-        // Add to cart if not already there
-        if (!cart.find(item => item.id === productData.id)) {
-            cart.push(productData);
-        }
-    } else {
-        buttonClicked.textContent = "Comprar";
-        buttonClicked.classList.remove("button_added");
-        listItem.classList.remove("product_added");
-
-        // Remove from cart
-        cart = cart.filter(item => item.id !== productData.id);
+  
+  if (buttonClicked.textContent === "Buy Now") {
+    if (!existingProduct) {
+      productData.quantity = 1; 
+      cart.push(productData);
+      buttonClicked.textContent = "Delete";
+      buttonClicked.classList.add("button_added");
+      listItem.classList.add("product_added");
     }
+    
+  } else {
+    // Remove the product entirely if the button shows "Eliminar"
+    cart = cart.filter(item => item.id !== productData.id);
+    buttonClicked.textContent = "Comprar";
+    buttonClicked.classList.remove("button_added");
+    listItem.classList.remove("product_added");
+  }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    renderCart();
-    renderItems(products, list); 
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  renderItems(products, list);
 }
+
 
 function handleClear(event) {
     event.preventDefault();
@@ -191,6 +223,22 @@ function handleClear(event) {
     renderItems(products, list);
 };
 
+function updateQuantity(id, delta) {
+  const product = cart.find(item => item.id === id);
+  if (!product) return;
+
+  product.quantity += delta;
+
+  // Remove product if quantity falls to 0 or less
+  if (product.quantity <= 0) {
+    cart = cart.filter(item => item.id !== id);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart(); // Re-render the shopping cart, with updated quantity buttons.
+  renderItems(products, list); // Also update the product list button states.
+}
+
 
 //Eventos 
 buttonFind.addEventListener("click", handleFind);
@@ -203,3 +251,14 @@ list.addEventListener("click", (event) => {
 });
 
 buttonClear.addEventListener("click", handleClear);
+
+
+trolley.addEventListener("click", (event) => {
+  const id = parseInt(event.target.dataset.id);
+
+  if (event.target.classList.contains("quantity-plus")) {
+    updateQuantity(id, 1);
+  } else if (event.target.classList.contains("quantity-minus")) {
+    updateQuantity(id, -1);
+  }
+});

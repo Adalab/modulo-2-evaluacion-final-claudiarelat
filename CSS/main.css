@@ -164,7 +164,7 @@ body {
 }
 
 /* Products grid with 4 columns */
-.product-grid {
+.product_grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

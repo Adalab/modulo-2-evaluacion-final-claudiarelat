@@ -329,8 +329,12 @@ body {
     width: 100%;
   }
 
+  .product {
+    width: 100%;
+  }
+
   .product_grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .cart-item {

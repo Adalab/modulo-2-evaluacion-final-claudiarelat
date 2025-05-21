@@ -317,10 +317,26 @@ body {
 
 /* Responsive - mobile tweaks */
 @media (max-width: 600px) {
+
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  .finder-panel,
+  .right-panel,
+  .top-panel,
+  .cart {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .finder {
     flex-direction: column;
     align-items: stretch;
-    padding: 1em;
+    padding: 1em 0;
     gap: 0.5em;
   }
 
@@ -335,6 +351,8 @@ body {
 
   .product_grid {
     grid-template-columns: 1fr;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .cart-item {

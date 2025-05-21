@@ -33,22 +33,12 @@ Welcome to Bluetique, an online store interface designed to "blue you away" with
 
 🎨 **Aesthetic**
 
-The store is styled with a dark blue theme for a sleek and calming look. Fonts used include:
+The store features a dark mode design accented with electric blue highlights, creating a modern vibe with high contrast for visual clarity. This slightly neon-inspired palette gives the interface an eye-catching, tech-forward look while maintaining elegance and readability. Fonts used include:
 
 * Quicksand for modern, clean body text
 
 * Playfair Display for elegant headings
 
-
-📂 **Project Structure**
-
-project/
-│
-├── index.html
-├── CSS/
-│   └── main.css
-└── JS/
-    └── main.js
 
 🚀 **How It Works**
 
@@ -68,11 +58,13 @@ project/
 
 * The cart persists between sessions using localStorage.
 
+
 📱 **Responsive Design**
 
 * On mobile, the layout stacks vertically for better usability.
 
 * On desktop, a two-column layout separates cart and product grid.
+
 
 💡 **Future Improvements**
 

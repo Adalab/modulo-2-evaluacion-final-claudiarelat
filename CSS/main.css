@@ -323,9 +323,19 @@ body {
     margin: 0;
   }
 
+  .left-panel {
+    margin-top: 6.5em;
+  }
+
   .finder-panel,
   .right-panel,
-  .top-panel,
+  .top-panel {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .cart {
     padding-left: 0;
     padding-right: 0;
